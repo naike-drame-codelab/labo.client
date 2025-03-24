@@ -1,3 +1,38 @@
+@if(control().invalid && (control().dirty || control().touched) &&
+control().enabled){ 
+  @if (control().getError('required')) {
+<p>Le champs est requis.</p>
+} @if(control().getError('maxlength')){
+<p>
+  Le champs est trop long (
+  {{ control().getError("maxlength").actualLength }}
+  /
+  {{ control().getError("maxlength").requiredLength }}
+  )
+</p>
+} @if(control().getError('minlength')){
+<p>
+  Le champs est trop court ( min :
+  {{ control().getError("minlength").requiredLength }}
+  )
+</p>
+} 
+@if(control().getError('min')){
+    <p>La valeur est trop petite (min : {{ control().getError("min").min }}).</p>
+} 
+@if(control().getError('max')){
+    <p>La valeur est trop grande (max : {{ control().getError("max").max }}).</p>
+} 
+@if(control().getError('email')){
+    <p>Le format de l'email est incorrect.</p>
+} 
+@if(control().getError('pattern')){
+    <p>Le format est incorrect.</p>
+} 
 @if(control().getError('exist')) {
     <p>Cette valeur est déjà utilisée</p>
+}
+@if(control().getError('isEndOfRegistrationDateValid')) {
+    <p>La date de fin doit être plus grande que le {{ control().getError("isEndOfRegistrationDateValid") | date: 'yyyy-MM-dd' }}</p>
+}
 }

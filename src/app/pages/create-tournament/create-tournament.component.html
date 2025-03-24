@@ -1,0 +1,86 @@
+<h1>Créer un tournoi</h1>
+<form [formGroup]="createForm" (submit)="submit()">
+  <p-card>
+    <div class="grid">
+      <div class="col-6">
+        <p-float-label>
+          <input pInputText formControlName="name" />
+          <label>Nom du tournoi</label>
+        </p-float-label>
+        <app-form-error [control]="createForm.get('name')!"></app-form-error>
+      </div>
+      <div class="col-6">
+        <p-float-label>
+          <input pInputText formControlName="location" />
+          <label>Lieu</label>
+        </p-float-label>
+        <app-form-error
+          [control]="createForm.get('location')!"
+        ></app-form-error>
+      </div>
+      <div class="col-6">
+        <p-floatLabel>
+          <input pInputText type="number" formControlName="minPlayers" />
+          <label>Nombre minimum de joueurs (2-32)</label>
+        </p-floatLabel>
+        <app-form-error
+          [control]="createForm.get('minPlayers')!"
+        ></app-form-error>
+      </div>
+      <div class="col-6">
+        <p-floatLabel>
+          <input pInputText type="number" formControlName="maxPlayers" />
+          <label>Nombre maximum de joueurs (2-32)</label>
+        </p-floatLabel>
+        <app-form-error
+          [control]="createForm.get('maxPlayers')!"
+        ></app-form-error>
+      </div>
+      <div class="col-6">
+        <p-floatLabel>
+          <input pInputText type="number" formControlName="minElo" />
+          <label>ELO minimum (0-3000)</label>
+        </p-floatLabel>
+        <app-form-error [control]="createForm.get('minElo')!"></app-form-error>
+      </div>
+      <div class="col-6">
+        <p-floatLabel>
+          <input pInputText type="number" formControlName="maxElo" />
+          <label>ELO maximum (0-3000)</label>
+        </p-floatLabel>
+        <app-form-error [control]="createForm.get('maxElo')!"></app-form-error>
+      </div>
+
+      <!-- <div class="card flex justify-center">
+          <!-- <p-multiselect [options]="categories" [(ngModel)]="selectedCities" placeholder="Select Cities" optionLabel="name" display="chip" styleClass="w-full md:w-80" />      </div> 
+          <p-multiselect
+            [options]="categories"
+            formControlName="categories"
+            styleClass="w-full"
+            optionLabel="label"
+            optionValue="value"
+            placeholder="Sélectionner une catégorie"
+            display="chip"
+            styleClass="w-full md:w-80"
+            emptyMessage="Aucun"
+          ></p-multiselect>
+      </div> --> 
+
+      <div class="col-6">
+        <p-floatLabel>
+          <p-calendar
+            styleClass="w-full"
+            formControlName="endOfRegistrationDate"
+          ></p-calendar>
+          <label>Date de fin d'inscription</label>
+        </p-floatLabel>
+        <app-form-error
+          [control]="createForm.get('endOfRegistrationDate')!"
+        ></app-form-error>
+      </div>
+    </div>
+    <ng-template #footer>
+      <p-button type="submit" label="Créer"></p-button>
+    </ng-template>
+  </p-card>
+</form>
