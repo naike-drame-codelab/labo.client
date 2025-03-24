@@ -4,7 +4,6 @@ import { InputText } from 'primeng/inputtext';
 import { FloatLabel } from 'primeng/floatlabel';
 import { Calendar } from 'primeng/calendar';
 import { Card } from 'primeng/card';
-import { Fieldset } from 'primeng/fieldset';
 import { AbstractControl, FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
@@ -15,7 +14,7 @@ import { catchError, finalize, map, of } from 'rxjs';
 import { FormErrorComponent } from "../../components/form-error/form-error.component";
 
 @Component({
-  imports: [CommonModule, Button, InputText, FloatLabel, Calendar, Card, Fieldset, ReactiveFormsModule, Select, FormErrorComponent],
+  imports: [CommonModule, Button, InputText, FloatLabel, Calendar, Card, ReactiveFormsModule, Select, FormErrorComponent],
   templateUrl: './register-member.component.html',
   styleUrl: './register-member.component.scss'
 })

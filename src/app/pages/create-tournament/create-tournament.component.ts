@@ -10,12 +10,10 @@ import {
   Validators,
 } from '@angular/forms';
 import { Button } from 'primeng/button';
-import { Calendar } from 'primeng/calendar';
+import { DatePickerModule } from 'primeng/datepicker';
 import { Card } from 'primeng/card';
-import { Fieldset } from 'primeng/fieldset';
 import { FloatLabel } from 'primeng/floatlabel';
 import { InputText } from 'primeng/inputtext';
-import { Select } from 'primeng/select';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { ToggleSwitchModule } from 'primeng/toggleswitch';
 import { FormErrorComponent } from '../../components/form-error/form-error.component';
@@ -29,7 +27,7 @@ import { MessageService } from 'primeng/api';
     Button,
     InputText,
     FloatLabel,
-    Calendar,
+    DatePickerModule,
     Card,
     MultiSelectModule,
     ToggleSwitchModule,
@@ -48,7 +46,7 @@ export class CreateTournamentComponent {
   // faire des requètes vers l'api
   tournamentService = inject(TournamentService);
 
-  categories = [
+  categoriesList = [
     { label: 'Junior', value: 0 },
     { label: 'Senior', value: 1 },
     { label: 'Veteran', value: 2 },
@@ -67,23 +65,23 @@ export class CreateTournamentComponent {
     ],
     minElo: [null, [Validators.min(0), Validators.max(3000)]],
     maxElo: [null, [Validators.min(0), Validators.max(3000)]],
-    categories: this.fb.array([], {
-      validators: [Validators.minLength(1)],
-    }),
+    categories: [<number[]>[], [Validators.required]],
     endOfRegistrationDate: [
       null,
       [Validators.required, this.isEndOfRegistrationDateValid()]
     ],
+    womenOnly: [false]
   });
-
-  get categoriesArray(): FormArray {
-    return this.createForm.get('categories') as FormArray;
-  }
 
   submit() {
     if (this.createForm.invalid) return;
 
-    this.tournamentService.create(this.createForm.value).subscribe({
+    const formData = { 
+      ...this.createForm.value, 
+      categories: this.createForm.value.categories
+    };
+
+    this.tournamentService.create(formData).subscribe({
       next: () => {
         this.messageService.add({
           severity: 'success',

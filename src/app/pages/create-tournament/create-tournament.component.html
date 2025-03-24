@@ -53,9 +53,10 @@
 
       <div class="col-6">
         <p-multiSelect
-          [options]="categories"
+          [options]="categoriesList"
           formControlName="categories"
           optionLabel="label"
+          optionValue="value"
           placeholder="Sélectionner une catégorie"
           display="chip"
           styleClass="w-full"
@@ -65,11 +66,16 @@
 
       <div class="col-6">
         <p-floatLabel>
-          <p-calendar styleClass="w-full" formControlName="endOfRegistrationDate"></p-calendar>
+          <p-datepicker styleClass="w-full" formControlName="endOfRegistrationDate"></p-datepicker>
           <label>Date de fin d'inscription</label>
         </p-floatLabel>
         <app-form-error [control]="createForm.get('endOfRegistrationDate')!"></app-form-error>
       </div>
+    </div>
+
+    <div class="col-6">
+      <label for="womenOnly">Réservé aux femmes ou autres</label>
+      <p-toggleswitch formControlName="womenOnly"></p-toggleswitch>
     </div>
 
     <p-button type="submit" label="Créer"></p-button>
