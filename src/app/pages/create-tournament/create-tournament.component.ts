@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import {
   AbstractControl,
+  FormArray,
   FormBuilder,
   ReactiveFormsModule,
   ValidationErrors,
@@ -30,11 +31,9 @@ import { MessageService } from 'primeng/api';
     FloatLabel,
     Calendar,
     Card,
-    Fieldset,
     MultiSelectModule,
     ToggleSwitchModule,
     ReactiveFormsModule,
-    Select,
     FormErrorComponent,
   ],
   templateUrl: './create-tournament.component.html',
@@ -58,7 +57,10 @@ export class CreateTournamentComponent {
   createForm = this.fb.group({
     name: [null, [Validators.required]],
     location: [null],
-    minPlayers: [null, [Validators.required, Validators.min]],
+    minPlayers: [
+      null, 
+      [Validators.required, Validators.min(2), Validators.max(32)]
+    ],
     maxPlayers: [
       null,
       [Validators.required, Validators.min(2), Validators.max(32)],
@@ -66,13 +68,17 @@ export class CreateTournamentComponent {
     minElo: [null, [Validators.min(0), Validators.max(3000)]],
     maxElo: [null, [Validators.min(0), Validators.max(3000)]],
     categories: this.fb.array([], {
-      validators: [Validators.min(1)],
+      validators: [Validators.minLength(1)],
     }),
     endOfRegistrationDate: [
       null,
-      [Validators.required, this.isEndOfRegistrationDateValid('minPlayers')]
+      [Validators.required, this.isEndOfRegistrationDateValid()]
     ],
   });
+
+  get categoriesArray(): FormArray {
+    return this.createForm.get('categories') as FormArray;
+  }
 
   submit() {
     if (this.createForm.invalid) return;
@@ -99,21 +105,19 @@ export class CreateTournamentComponent {
   }
 
   // vérifie que (date de fin du tournoi + minPlayers) > today date
-  isEndOfRegistrationDateValid(minPlayersControlName: string): ValidatorFn {
+  isEndOfRegistrationDateValid(): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
       const endOfRegistrationDate = control.value;
-      const minPlayersControl = this.createForm?.get(minPlayersControlName);
-
-      if (!endOfRegistrationDate || !minPlayersControl) return null;
-
-      const minPlayers = minPlayersControl.value;
-      const currentDate = new Date();
+      const minPlayers = this.createForm?.get('minPlayers')?.value || 0;
+  
+      if (!endOfRegistrationDate || minPlayers < 2) return null;
+  
       const requiredEndDate = new Date();
-      requiredEndDate.setDate(currentDate.getDate() + minPlayers);
-
+      requiredEndDate.setDate(new Date().getDate() + minPlayers);
+  
       return new Date(endOfRegistrationDate) > requiredEndDate
         ? null
-        : { isEndOfRegistrationDateValid: requiredEndDate };
+        : { isEndOfRegistrationDateValid: `Doit être après le ${requiredEndDate.toLocaleDateString()}` };
     };
   }
 }

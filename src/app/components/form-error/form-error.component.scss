@@ -1,0 +1,28 @@
+/* Main container that always maintains space */
+.error-container {
+    height: 1.75rem; /* Adjust based on your message height */
+    position: relative;
+    margin-top: 0.25rem;
+    margin-bottom: 0.25rem;
+  }
+  
+  /* Actual error message styling */
+  .error-container ::ng-deep .p-message {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    margin: 0;
+    padding: 0.25rem 0;
+  }
+  
+  /* Placeholder for when no error is shown */
+  .error-placeholder {
+    visibility: hidden;
+    height: 100%;
+  }
+  
+  /* Optional: Adjust float label spacing */
+  p-floatLabel {
+    margin-bottom: 0.5rem !important;
+  }
