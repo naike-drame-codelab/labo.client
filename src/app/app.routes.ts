@@ -15,4 +15,18 @@ export const routes: Routes = [
         (c) => c.CreateTournamentComponent
       ),
   },
+  {
+    path: 'tournament',
+    loadComponent: () =>
+      import('./pages/tournament-list/tournament-list.component').then(
+        (c) => c.TournamentListComponent
+      ),
+  },
+  {
+    path: 'tournament/:id',
+    loadComponent: () =>
+      import('./pages/tournament-details/tournament-details.component').then(
+        (c) => c.TournamentDetailsComponent
+      ),
+  },
 ];

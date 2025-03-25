@@ -20,10 +20,12 @@ import { FormErrorComponent } from '../../components/form-error/form-error.compo
 import { Router } from '@angular/router';
 import { TournamentService } from '../../services/tournament.service';
 import { MessageService } from 'primeng/api';
+import { RouterModule } from '@angular/router';
 
 @Component({
   imports: [
     CommonModule,
+    RouterModule,
     Button,
     InputText,
     FloatLabel,
@@ -87,7 +89,7 @@ export class CreateTournamentComponent {
           severity: 'success',
           summary: 'Le tournoi a été créé avec succès !',
         });
-        this.router.navigate(['/']);
+        this.router.navigate(['/tournament/:id']);
       },
       error: (error) => {
         if (error.status === 500) {

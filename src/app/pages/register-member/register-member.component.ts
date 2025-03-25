@@ -60,9 +60,9 @@ export class RegisterMemberComponent {
     }
     // soumettre le formulaire à l'api
     this.isLoading = true;
-    this.memberService.register(this.registerForm.value).pipe(
-      finalize(() => this.isLoading = false)
-    ).subscribe({
+    this.memberService.register(this.registerForm.value)
+    //.pipe(finalize(() => this.isLoading = false))
+    .subscribe({
       next: () => {
         this.messageService.add({ severity: 'success', summary: 'La sauvegarde a été effectuée avec succès' });
         this.router.navigate(['/']);

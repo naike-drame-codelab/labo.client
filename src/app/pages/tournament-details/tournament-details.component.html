@@ -1,0 +1,13 @@
+<h1>{{ tournament?.name }}</h1>
+<p>{{ tournament?.location }}</p>
+<p>{{ tournament?.minElo }} - {{ tournament?.maxElo }}</p>
+<p>{{ tournament?.endOfRegistrationDate | date : "dd-MM-yyyy" }}</p>
+<p>(inscrits) / {{ tournament?.maxPlayers }}</p>
+
+
+<p>{{ getCategoryNames(tournament?.categories) }}</p>
+<p>{{ getStatusName(tournament?.status) }}</p> 
+
+@if(tournament?.id !== null){
+    <p-button label="Supprimer" icon="pi pi-trash" severity="danger" [rounded]="true"/>
+}

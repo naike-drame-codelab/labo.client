@@ -1,4 +1,7 @@
+<div class="caption">
 <h1>Créer un tournoi</h1>
+<p-button label="Retour à la liste" icon="pi pi-chevron-left" iconPos="left" [rounded]="true" severity="contrast" [routerLink]="'/tournament'"/>
+</div>
 
 <form [formGroup]="createForm" (submit)="submit()">
   <p-card>
@@ -75,9 +78,9 @@
 
     <div class="col-6">
       <label for="womenOnly">Réservé aux femmes ou autres</label>
-      <p-toggleswitch formControlName="womenOnly"></p-toggleswitch>
+      <p-toggleswitch formControlName="womenOnly" severity="contrast"></p-toggleswitch>
     </div>
 
-    <p-button type="submit" label="Créer"></p-button>
+    <p-button type="submit" label="Créer" severity="contrast"></p-button>
   </p-card>
 </form>

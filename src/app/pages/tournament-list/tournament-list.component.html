@@ -1,0 +1,33 @@
+<p-table [value]="tournaments" [tableStyle]="{ 'min-width': '50rem' }">
+    <ng-template #caption>
+        <div class="caption">
+            <span class="text-xl font-bold">Tournois</span>
+            <p-button label="Créer un tournoi" icon="pi pi-pencil" iconPos="left" [rounded]="true" severity="contrast" [routerLink]="'/tournament/create'"/>
+        </div>
+    </ng-template>
+    <ng-template #header>
+        <tr>
+            <th>Nom</th>
+            <th>Lieu</th>
+            <th>Categories</th>
+            <th>Elo</th>
+            <th>Status</th>
+            <th>Fin des inscriptions</th>
+            <th>Joueurs</th>
+            <th>Plus</th>
+        </tr>
+    </ng-template>
+    <ng-template #body let-tournament>
+        <tr>
+            <td>{{ tournament.name }}</td>
+            <td>{{ tournament.location }}</td>
+            <td>{{ getCategoryNames(tournament.categories) }}</td>
+            <td>{{ tournament.minElo }} - {{ tournament.maxElo }}</td>
+            <td>{{ getStatusName(tournament.status) }}</td>
+            <td>{{ tournament.endOfRegistrationDate | date : "dd-MM-yyyy" }}</td>
+            <td>(inscrits) / {{ tournament.maxPlayers }}</td>
+            <p-button icon="pi pi-info" severity="contrast" [rounded]="true" [routerLink]="['/tournament', tournament.id]"/>
+            <p-button icon="pi pi-trash" severity="danger" [rounded]="true" [outlined]="true"/>
+        </tr>
+    </ng-template>
+</p-table>
