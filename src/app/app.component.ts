@@ -17,16 +17,29 @@ import { ToolbarModule } from 'primeng/toolbar';
     RouterOutlet,
     Toast,
     ConfirmDialog,
-    // BrowserModule,
-    // TableModule,
-    // CardModule,
-    // ButtonModule,
-    // ToolbarModule,
-    // PanelModule,
-    // ChartModule,
-    // MenubarModule,
+    
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
-export class AppComponent {}
+export class AppComponent {
+  menuItems = [
+    {
+      label: 'Dashboard',
+      icon: 'pi pi-home'
+    },
+    {
+      label: 'Orders',
+      icon: 'pi pi-shopping-cart'
+    },
+    {
+      label: 'Customers',
+      icon: 'pi pi-users'
+    },
+    {
+      label: 'Reports',
+      icon: 'pi pi-chart-line'
+    }
+  ];
+
+}

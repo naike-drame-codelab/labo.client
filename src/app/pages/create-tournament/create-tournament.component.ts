@@ -89,7 +89,7 @@ export class CreateTournamentComponent {
           severity: 'success',
           summary: 'Le tournoi a été créé avec succès !',
         });
-        this.router.navigate(['/tournament/:id']);
+        this.router.navigate(['/tournament/']);
       },
       error: (error) => {
         if (error.status === 500) {
@@ -117,7 +117,7 @@ export class CreateTournamentComponent {
   
       return new Date(endOfRegistrationDate) > requiredEndDate
         ? null
-        : { isEndOfRegistrationDateValid: `Doit être après le ${requiredEndDate.toLocaleDateString()}` };
+        : { isEndOfRegistrationDateValid: true} };
     };
   }
-}
+

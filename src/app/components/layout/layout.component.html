@@ -1,0 +1,39 @@
+<div class="dashboard-container">
+  <!-- MENU FIXE (VISIBLE EN DESKTOP) -->
+  @if(!isMobile) {
+  <div class="sidebar">
+    <p-panelMenu [model]="menuItems"></p-panelMenu>
+  </div>
+  }
+
+  <!-- CONTENU PRINCIPAL -->
+  <div class="content-container">
+    <div class="header">
+      <!-- Bouton menu mobile -->
+       @if(isMobile) {
+      <p-button
+        icon="pi pi-bars"
+        (click)="sidebarVisible = !sidebarVisible"
+        class="menu-btn"
+        ></p-button>
+        }
+      <h1>Gestion de tournois</h1>
+
+      <p-button icon="pi pi-user" label="Se connecter" iconPos="left" [rounded]="true" severity="contrast" [routerLink]="'/login'"></p-button>
+    </div>
+
+    <div class="main-content">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>
+
+<!-- MENU LATÉRAL EN MODE MOBILE -->
+<p-sidebar
+  [(visible)]="sidebarVisible"
+  position="left"
+  [modal]="true"
+  [showCloseIcon]="false"
+>
+  <p-panelMenu [model]="menuItems"></p-panelMenu>
+</p-sidebar>

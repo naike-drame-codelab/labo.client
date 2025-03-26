@@ -1,0 +1,62 @@
+/* Conteneur principal en mode flex */
+.dashboard-container {
+    display: flex;
+    height: 100vh;
+  }
+  
+  /* MENU FIXE EN DESKTOP */
+  .sidebar {
+    width: 250px;
+    background: #1a1b1b;
+    padding: 10px;
+    border-right: 1px solid #ccc;
+    height: 100vh;
+    overflow-y: auto;
+  }
+
+  /* Contenu principal (espace des pages) */
+  .content-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  /* HEADER avec bouton menu en mobile */
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px;
+    background-color: #1a1b1b;
+    border-bottom: 1px solid #ccc;
+  }
+  
+  /* Style du bouton de connexion */
+.login-btn {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    font-size: 14px;
+  }
+  
+  /* Icône à gauche du texte */
+  .login-btn .pi {
+    margin-right: 5px;
+  }
+
+  /* Contenu des pages */
+  .main-content {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+  }
+  
+  /* CACHE LE MENU FIXE EN MOBILE */
+  @media (max-width: 768px) {
+    .sidebar {
+      display: none;
+    }
+  }
+  

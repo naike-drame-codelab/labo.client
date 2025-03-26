@@ -1,0 +1,29 @@
+<h2>Se connecter</h2>
+
+<div class="content">
+  <form [formGroup]="loginForm" (submit)="login()">
+    <p-card>
+      <p-floatLabel>
+        <input pInputText formControlName="username" />
+        <label>Nom d'utilisateur</label>
+      </p-floatLabel>
+      <app-form-error [control]="loginForm.get('username')!"></app-form-error>
+
+      <p-floatLabel>
+        <input type="password" formControlName="password" />
+        <label>Mot de passe</label>
+      </p-floatLabel>
+      <app-form-error [control]="loginForm.get('password')!"></app-form-error>
+      <div class="btn-submit">
+          <p-button
+            type="submit"
+            label="Connexion"
+            icon="pi pi-sign-in"
+            iconPos="left"
+            [rounded]="true"
+            severity="contrast"
+          ></p-button>
+      </div>
+    </p-card>
+  </form>
+</div>

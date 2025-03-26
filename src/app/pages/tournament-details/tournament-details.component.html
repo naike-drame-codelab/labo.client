@@ -1,13 +1,63 @@
-<h1>{{ tournament?.name }}</h1>
-<p>{{ tournament?.location }}</p>
-<p>{{ tournament?.minElo }} - {{ tournament?.maxElo }}</p>
-<p>{{ tournament?.endOfRegistrationDate | date : "dd-MM-yyyy" }}</p>
-<p>(inscrits) / {{ tournament?.maxPlayers }}</p>
+<div class="tournament-info-container">
+  <div class="header">
+    <h2>Informations sur : {{ tournament?.name }}</h2>
+    <p-button
+      label="Retour à la liste"
+      icon="pi pi-chevron-left"
+      iconPos="left"
+      [rounded]="true"
+      severity="contrast"
+      [routerLink]="'/tournament'"
+    />
+  </div>
 
+  <p-card>
+    <!-- Utilisation de div pour l'en-tête -->
+    <div class="card-header">
+      <h3>Détails du tournoi</h3>
+    </div>
 
-<p>{{ getCategoryNames(tournament?.categories) }}</p>
-<p>{{ getStatusName(tournament?.status) }}</p> 
+    <div class="info-grid">
+      <div class="info-item">
+        <i class="pi pi-map-marker"></i>
+        <span>{{ tournament?.location }}</span>
+      </div>
 
-@if(tournament?.id !== null){
-    <p-button label="Supprimer" icon="pi pi-trash" severity="danger" [rounded]="true"/>
-}
+      <div class="info-item">
+        <i class="pi pi-star"></i>
+        <span>Elo : {{ tournament?.minElo }} - {{ tournament?.maxElo }}</span>
+      </div>
+
+      <div class="info-item">
+        <i class="pi pi-calendar"></i>
+        <span
+          >Clôture :
+          {{ tournament?.endOfRegistrationDate | date : "dd-MM-yyyy" }}</span
+        >
+      </div>
+
+      <div class="info-item">
+        <i class="pi pi-users"></i>
+        <span>(inscrits) / {{ tournament?.maxPlayers }}</span>
+      </div>
+
+      <div class="info-item">
+        <i class="pi pi-tags"></i>
+        <span>
+          <p-tag severity="info">
+            {{ getCategoryNames(tournament?.categories) }}
+          </p-tag>
+        </span>
+      </div>
+
+      <div class="info-item">
+        <i class="pi pi-info-circle"></i>
+        <span>
+          <p-tag severity="success">
+            {{ getStatusName(tournament?.status) }}
+          </p-tag>
+        </span>
+      </div>
+    </div>
+  </p-card>
+</div>

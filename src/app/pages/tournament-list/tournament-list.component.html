@@ -1,3 +1,5 @@
+<p-confirmDialog></p-confirmDialog>
+
 <p-table [value]="tournaments" [tableStyle]="{ 'min-width': '50rem' }">
   <ng-template #caption>
     <div class="caption">
@@ -45,6 +47,7 @@
           severity="danger"
           [rounded]="true"
           [outlined]="true"
+          (click)="confirmDelete(tournament.id)"
         />
       </td>
     </tr>
