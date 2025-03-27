@@ -23,23 +23,6 @@ import { ToolbarModule } from 'primeng/toolbar';
   styleUrl: './app.component.scss',
 })
 export class AppComponent {
-  menuItems = [
-    {
-      label: 'Dashboard',
-      icon: 'pi pi-home'
-    },
-    {
-      label: 'Orders',
-      icon: 'pi pi-shopping-cart'
-    },
-    {
-      label: 'Customers',
-      icon: 'pi pi-users'
-    },
-    {
-      label: 'Reports',
-      icon: 'pi pi-chart-line'
-    }
-  ];
+  
 
 }

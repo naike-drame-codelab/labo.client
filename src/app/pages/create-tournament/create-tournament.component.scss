@@ -7,3 +7,15 @@ input {
     align-items: center;
     justify-content: space-between
 }
+
+.womenonly{
+    display:flex;
+    gap: 10px;
+    align-items: center;
+    margin-bottom: 10px;
+    
+    label[for="womenOnly"] {
+        color: rgb(155, 155, 155); /* Change text color */
+        font-size: 0.9em;
+      }
+}

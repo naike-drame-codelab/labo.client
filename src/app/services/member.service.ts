@@ -13,6 +13,10 @@ export class MemberService {
 
   constructor() { }
 
+  getAll(){
+    return this.httpClient.get(environment.baseApiUrl + '/member');
+  }
+
   register(form: any){
     return this.httpClient.post(environment.baseApiUrl + '/member', form);
   }
@@ -22,4 +26,8 @@ export class MemberService {
       params: { email }
     })
   }
+
+   delete(id: number){
+      return this.httpClient.delete(`${environment.baseApiUrl}/member/${id}`);
+    }
 }

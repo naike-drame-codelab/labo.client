@@ -9,33 +9,43 @@ import { ButtonModule } from 'primeng/button';
 import { RouterModule } from '@angular/router';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ConfirmationService, MessageService } from 'primeng/api';
+import { SessionService } from '../../services/session.service';
 
 @Component({
-  imports: [CommonModule, RouterModule, TableModule, ButtonModule, ConfirmDialogModule],
+  imports: [
+    CommonModule,
+    RouterModule,
+    TableModule,
+    ButtonModule,
+    ConfirmDialogModule,
+  ],
   providers: [ConfirmationService],
   templateUrl: './tournament-list.component.html',
-  styleUrl: './tournament-list.component.scss'
+  styleUrl: './tournament-list.component.scss',
 })
 export class TournamentListComponent {
   private _tournamentService = inject(TournamentService);
   private _confirmationService = inject(ConfirmationService);
   messageService = inject(MessageService);
-  
+  sessionService = inject (SessionService);
+
   tournaments: Tournament[] = [];
   Status = Status;
   Category = Category;
-  
-  constructor(){
-    this._tournamentService.getAll().subscribe((data: any) => {
-      this.tournaments = data;
-    });;
+
+  constructor() {
+    if (this.sessionService.session().isAuthenticated) {
+      this._tournamentService.getAll().subscribe((data: any) => {
+        this.tournaments = data;
+      });
+    }
   }
 
   getCategoryNames(categories: number[]): string {
-    return categories.map(c => this.Category[c]).join(", ");
+    return categories.map((c) => this.Category[c]).join(', ');
   }
-  
-  getStatusName(status: number| undefined ): string | undefined {
+
+  getStatusName(status: number | undefined): string | undefined {
     return status !== undefined ? this.Status[status] : undefined;
   }
 
@@ -54,15 +64,14 @@ export class TournamentListComponent {
         });
       },
       reject: () => {
-        console.log("Suppression annulée !");
-      }
+        console.log('Suppression annulée !');
+      },
     });
   }
-  
 
   deleteTournament(tournamentId: number) {
     this._tournamentService.delete(tournamentId).subscribe(() => {
-      this.tournaments = this.tournaments.filter(t => t.id !== tournamentId);
+      this.tournaments = this.tournaments.filter((t) => t.id !== tournamentId);
     });
   }
 }

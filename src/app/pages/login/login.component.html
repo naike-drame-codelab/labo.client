@@ -4,10 +4,10 @@
   <form [formGroup]="loginForm" (submit)="login()">
     <p-card>
       <p-floatLabel>
-        <input pInputText formControlName="username" />
-        <label>Nom d'utilisateur</label>
+        <input pInputText formControlName="usernameOrEmail" />
+        <label>Nom d'utilisateur ou Email</label>
       </p-floatLabel>
-      <app-form-error [control]="loginForm.get('username')!"></app-form-error>
+      <app-form-error [control]="loginForm.get('usernameOrEmail')!"></app-form-error>
 
       <p-floatLabel>
         <input type="password" formControlName="password" />

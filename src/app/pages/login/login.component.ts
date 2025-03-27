@@ -6,6 +6,10 @@ import { Card } from 'primeng/card';
 import { InputText } from 'primeng/inputtext';
 import { FormErrorComponent } from "../../components/form-error/form-error.component";
 import { FloatLabel } from 'primeng/floatlabel';
+import { SessionService } from '../../services/session.service';
+import { HttpClient } from '@angular/common/http';
+import { MessageService } from 'primeng/api';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-login',
@@ -16,20 +20,31 @@ import { FloatLabel } from 'primeng/floatlabel';
 })
 export class LoginComponent {
   fb = inject(FormBuilder);
+  sessionService = inject(SessionService);
+  httpClient = inject(HttpClient);
   router = inject(Router);
+  messageService = inject(MessageService);
 
   loginForm = this.fb.group({
-    username: ['', Validators.required],
-    password: ['', [Validators.required]],
+    usernameOrEmail: ['', [Validators.required]],
+    password: [null, [Validators.required]],
   });
 
   login() {
-    if (this.loginForm.valid) {
-      console.log('Connexion avec :', this.loginForm.value);
-      // Ici, ajoute l'appel API pour l'authentification
-      this.router.navigate(['/']); // Redirection après connexion
-    } else {
-      this.loginForm.markAllAsTouched();
+    if(this.loginForm.invalid) {
+      return;
     }
+    this.httpClient.post<{token: string}>(environment.baseApiUrl + '/Auth/login', this.loginForm.value).subscribe({
+      next: ({token}) => {
+        // sauver le token qq part
+        this.sessionService.startSession(token);
+        // rediriger vers une autre page
+        this.router.navigate(['/tournament']);
+      },
+      error: () => {
+        // afficher un message d'erreur
+        this.messageService.add({ severity: 'error', summary: 'Impossible de vous connecter' });
+      }
+    })
   }
 }

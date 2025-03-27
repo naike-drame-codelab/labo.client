@@ -4,14 +4,16 @@
   <ng-template #caption>
     <div class="caption">
       <span class="text-xl font-bold">Tournois</span>
-      <p-button
-        label="Créer un tournoi"
-        icon="pi pi-pencil"
-        iconPos="left"
-        [rounded]="true"
-        severity="contrast"
-        [routerLink]="'/tournament/create'"
-      />
+      @if(sessionService.session().role === 'Admin'){
+        <p-button
+          label="Créer un tournoi"
+          icon="pi pi-pencil"
+          iconPos="left"
+          [rounded]="true"
+          severity="contrast"
+          [routerLink]="'/tournament/create'"
+        />
+      }
     </div>
   </ng-template>
   <ng-template #header>
@@ -35,12 +37,18 @@
       <td>{{ getStatusName(tournament.status) }}</td>
       <td>{{ tournament.endOfRegistrationDate | date : "dd-MM-yyyy" }}</td>
       <td>(inscrits) / {{ tournament.maxPlayers }}</td>
-      <td>
+      <td class="more">
         <p-button
           icon="pi pi-info"
           severity="contrast"
           [rounded]="true"
-          [routerLink]="['/tournament', tournament.id]"
+          [routerLink]="['/tournament',  tournament.id]"
+        />
+        <p-button
+          icon="pi pi-book"
+          severity="info"
+          [rounded]="true"
+          [routerLink]="['/tournament/join']"
         />
         <p-button
           icon="pi pi-trash"

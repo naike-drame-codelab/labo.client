@@ -18,8 +18,11 @@
         ></p-button>
         }
       <h1>Gestion de tournois</h1>
-
-      <p-button icon="pi pi-user" label="Se connecter" iconPos="left" [rounded]="true" severity="contrast" [routerLink]="'/login'"></p-button>
+      @if(sessionService.session().isAuthenticated){
+        <p-button icon="pi pi-user" label="Se déconnecter" iconPos="left" [rounded]="true" severity="contrast" (click)="sessionService.clearSession()"></p-button>
+      }@else {
+        <p-button icon="pi pi-user" label="Se connecter" iconPos="left" [rounded]="true" severity="contrast" [routerLink]="'/login'"></p-button>
+      }
     </div>
 
     <div class="main-content">

@@ -52,14 +52,14 @@ export class CreateTournamentComponent {
     { label: 'Junior', value: 0 },
     { label: 'Senior', value: 1 },
     { label: 'Veteran', value: 2 },
-  ]
+  ];
 
   createForm = this.fb.group({
     name: [null, [Validators.required]],
     location: [null],
     minPlayers: [
-      null, 
-      [Validators.required, Validators.min(2), Validators.max(32)]
+      null,
+      [Validators.required, Validators.min(2), Validators.max(32)],
     ],
     maxPlayers: [
       null,
@@ -70,17 +70,17 @@ export class CreateTournamentComponent {
     categories: [<number[]>[], [Validators.required]],
     endOfRegistrationDate: [
       null,
-      [Validators.required, this.isEndOfRegistrationDateValid()]
+      [Validators.required, this.isEndOfRegistrationDateValid()],
     ],
-    womenOnly: [false]
+    womenOnly: [false],
   });
 
   submit() {
     if (this.createForm.invalid) return;
 
-    const formData = { 
-      ...this.createForm.value, 
-      categories: this.createForm.value.categories
+    const formData = {
+      ...this.createForm.value,
+      categories: this.createForm.value.categories,
     };
 
     this.tournamentService.create(formData).subscribe({
@@ -109,15 +109,15 @@ export class CreateTournamentComponent {
     return (control: AbstractControl): ValidationErrors | null => {
       const endOfRegistrationDate = control.value;
       const minPlayers = this.createForm?.get('minPlayers')?.value || 0;
-  
+
       if (!endOfRegistrationDate || minPlayers < 2) return null;
-  
+
       const requiredEndDate = new Date();
       requiredEndDate.setDate(new Date().getDate() + minPlayers);
-  
+
       return new Date(endOfRegistrationDate) > requiredEndDate
         ? null
-        : { isEndOfRegistrationDateValid: true} };
+        : { isEndOfRegistrationDateValid: { minDate: requiredEndDate } };
     };
   }
-
+}
