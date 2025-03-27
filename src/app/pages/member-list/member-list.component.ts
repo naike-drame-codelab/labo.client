@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { TableModule } from 'primeng/table';
@@ -18,7 +18,7 @@ export class MemberListComponent {
   private _confirmationService = inject(ConfirmationService);
   private _messageService = inject(MessageService);
 
-  members: Member[] = [];
+  members = signal<Member[]>([]);
   Gender = Gender;
  
   getGenderName(gender: number| undefined ): string | undefined {
@@ -27,7 +27,7 @@ export class MemberListComponent {
 
   constructor() {
     this._memberService.getAll().subscribe((data: any) => {
-      this.members = data;
+      this.members.set(data);
     });
   }
 
@@ -53,7 +53,8 @@ export class MemberListComponent {
 
   deleteMember(memberId: number) {
     this._memberService.delete(memberId).subscribe(() => {
-      this.members = this.members.filter(t => t.id !== memberId);
+      const updatedMembers = this.members().filter(m => m.id !== memberId);
+      this.members.set(updatedMembers);    
     });
   }
 }

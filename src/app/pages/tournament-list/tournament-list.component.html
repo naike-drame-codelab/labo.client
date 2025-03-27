@@ -1,6 +1,6 @@
 <p-confirmDialog></p-confirmDialog>
 
-<p-table [value]="tournaments" [tableStyle]="{ 'min-width': '50rem' }">
+<p-table [value]="tournaments()" [tableStyle]="{ 'min-width': '50rem' }">
   <ng-template #caption>
     <div class="caption">
       <span class="text-xl font-bold">Tournois</span>
@@ -32,7 +32,11 @@
     <tr>
       <td>{{ tournament.name }}</td>
       <td>{{ tournament.location }}</td>
-      <td>{{ getCategoryNames(tournament.categories) }}</td>
+      <ng-container *ngFor="let category of tournament.categories; let i = index">
+        <span>{{ Category[category] }}</span>
+        <span *ngIf="i < tournament.categories.length - 1"> </span>
+      </ng-container>
+      <!-- <td>{{ getCategoryNames(tournament.categories) }}</td> -->
       <td>{{ tournament.minElo }} - {{ tournament.maxElo }}</td>
       <td>{{ getStatusName(tournament.status) }}</td>
       <td>{{ tournament.endOfRegistrationDate | date : "dd-MM-yyyy" }}</td>

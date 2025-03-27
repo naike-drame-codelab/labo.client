@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { TournamentService } from '../../services/tournament.service';
 import { Tournament } from '../../models/tournament';
 import { CommonModule } from '@angular/common';
@@ -29,14 +29,14 @@ export class TournamentListComponent {
   messageService = inject(MessageService);
   sessionService = inject (SessionService);
 
-  tournaments: Tournament[] = [];
+  tournaments = signal<Tournament[]>([]);
   Status = Status;
   Category = Category;
 
   constructor() {
     if (this.sessionService.session().isAuthenticated) {
       this._tournamentService.getAll().subscribe((data: any) => {
-        this.tournaments = data;
+        this.tournaments.set(data);
       });
     }
   }
@@ -71,7 +71,10 @@ export class TournamentListComponent {
 
   deleteTournament(tournamentId: number) {
     this._tournamentService.delete(tournamentId).subscribe(() => {
-      this.tournaments = this.tournaments.filter((t) => t.id !== tournamentId);
+      const updatedTournaments = this.tournaments().filter(
+        (t) => t.id !== tournamentId
+      );
+      this.tournaments.set(updatedTournaments);
     });
   }
 }
