@@ -21,6 +21,8 @@ export const routes: Routes = [
           import('./pages/member-list/member-list.component').then(
             (c) => c.MemberListComponent
           ),
+          canActivate: [authenticatedGuard],
+
       },
       {
         path: 'member/register',
@@ -28,6 +30,7 @@ export const routes: Routes = [
           import('./pages/register-member/register-member.component').then(
             (c) => c.RegisterMemberComponent
           ),
+          canActivate: [authenticatedGuard],
       },
       {
         path: 'tournament/create',
@@ -35,6 +38,8 @@ export const routes: Routes = [
           import('./pages/create-tournament/create-tournament.component').then(
             (c) => c.CreateTournamentComponent
           ),
+          canActivate: [authenticatedGuard],
+
       },
       {
         path: 'tournament',
@@ -45,18 +50,12 @@ export const routes: Routes = [
           canActivate: [authenticatedGuard],
       },
       {
-        path: 'tournament/join',
-        loadComponent: () =>
-          import('./pages/tournament-join/tournament-join.component').then(
-            (c) => c.TournamentJoinComponent
-          ),
-      },
-      {
         path: 'tournament/:id',
         loadComponent: () =>
           import(
             './pages/tournament-details/tournament-details.component'
           ).then((c) => c.TournamentDetailsComponent),
+          canActivate: [authenticatedGuard],
       },
       {
         path: 'login',

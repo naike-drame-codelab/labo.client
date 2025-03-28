@@ -34,7 +34,7 @@ export class LoginComponent {
     if(this.loginForm.invalid) {
       return;
     }
-    this.httpClient.post<{token: string}>(environment.baseApiUrl + '/Auth/login', this.loginForm.value).subscribe({
+    this.httpClient.post<{token: string}>(environment.baseApiUrl + '/login', this.loginForm.value).subscribe({
       next: ({token}) => {
         // sauver le token qq part
         this.sessionService.startSession(token);

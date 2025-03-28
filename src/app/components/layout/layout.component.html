@@ -2,7 +2,11 @@
   <!-- MENU FIXE (VISIBLE EN DESKTOP) -->
   @if(!isMobile) {
   <div class="sidebar">
-    <p-panelMenu [model]="menuItems"></p-panelMenu>
+    <p-panelMenu [model]="memberMenu"></p-panelMenu>
+    @if(sessionService.session().isAuthenticated){
+    @if(sessionService.session().role === "Admin"){
+    <p-panelMenu [model]="adminMenu"></p-panelMenu>
+    } } 
   </div>
   }
 
@@ -10,19 +14,41 @@
   <div class="content-container">
     <div class="header">
       <!-- Bouton menu mobile -->
-       @if(isMobile) {
+      @if(isMobile) {
       <p-button
         icon="pi pi-bars"
         (click)="sidebarVisible = !sidebarVisible"
         class="menu-btn"
+      ></p-button>
+      }
+      <h1>Gestion de tournois</h1>
+      <div>
+        @if(sessionService.session().isAuthenticated){
+        @if(sessionService.session().role === "Admin"){
+        <p-tag severity="warn" value="Admin" [rounded]="true" />
+        } @if(sessionService.session().role === "Member"){
+        <p-tag severity="info" value="Member" [rounded]="true" />
+        }
+        <p-button
+          icon="pi pi-user"
+          label="Se déconnecter"
+          iconPos="left"
+          [rounded]="true"
+          severity="contrast"
+          (click)="sessionService.clearSession()"
+          [routerLink]="'/login'"
+        ></p-button>
+        }@else {
+        <p-button
+          icon="pi pi-user"
+          label="Se connecter"
+          iconPos="left"
+          [rounded]="true"
+          severity="contrast"
+          [routerLink]="'/login'"
         ></p-button>
         }
-      <h1>Gestion de tournois</h1>
-      @if(sessionService.session().isAuthenticated){
-        <p-button icon="pi pi-user" label="Se déconnecter" iconPos="left" [rounded]="true" severity="contrast" (click)="sessionService.clearSession()"></p-button>
-      }@else {
-        <p-button icon="pi pi-user" label="Se connecter" iconPos="left" [rounded]="true" severity="contrast" [routerLink]="'/login'"></p-button>
-      }
+      </div>
     </div>
 
     <div class="main-content">
@@ -38,5 +64,5 @@
   [modal]="true"
   [showCloseIcon]="false"
 >
-  <p-panelMenu [model]="menuItems"></p-panelMenu>
+  <p-panelMenu [model]="memberMenu"></p-panelMenu>
 </p-sidebar>

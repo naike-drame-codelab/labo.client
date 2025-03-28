@@ -33,6 +33,8 @@ export class TournamentListComponent {
   Status = Status;
   Category = Category;
 
+  isRegistered: boolean = false;
+
   constructor() {
     if (this.sessionService.session().isAuthenticated) {
       this._tournamentService.getAll().subscribe((data: any) => {
@@ -47,6 +49,52 @@ export class TournamentListComponent {
 
   getStatusName(status: number | undefined): string | undefined {
     return status !== undefined ? this.Status[status] : undefined;
+  }
+
+  confirmRegistration(tournamentId: number) {
+    this._confirmationService.confirm({
+      message: 'Voulez-vous vous inscrire à ce tournoi ?',
+      header: 'Confirmation',
+      icon: 'pi pi-exclamation-triangle',
+      acceptLabel: 'Oui',
+      rejectLabel: 'Non',
+      accept: () => {
+       //  this.registerToTournament(tournamentId);
+       console.log(tournamentId);
+       this.registerToTournament(tournamentId);
+       
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Vous êtes inscrit au tournoi.',
+        });
+      },
+      reject: () => {
+        console.log('Suppression annulée !');
+      },
+    });
+  }
+
+  confirmUnRegistration(tournamentId: number) {
+    this._confirmationService.confirm({
+      message: 'Voulez-vous vous désinscrire ?',
+      header: 'Confirmation',
+      icon: 'pi pi-exclamation-triangle',
+      acceptLabel: 'Oui',
+      rejectLabel: 'Non',
+      accept: () => {
+       //  this.registerToTournament(tournamentId);
+       console.log(tournamentId);
+       this.unregisterToTournament(tournamentId);
+       
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Vous êtes désinscrit de ce tournoi.',
+        });
+      },
+      reject: () => {
+        console.log('Suppression annulée !');
+      },
+    });
   }
 
   confirmDelete(tournamentId: number) {
@@ -67,6 +115,20 @@ export class TournamentListComponent {
         console.log('Suppression annulée !');
       },
     });
+  }
+
+  registerToTournament(tournamentId : number){
+    // return this.isRegistered = true;
+    this._tournamentService.register(tournamentId).subscribe();
+  }
+
+  unregisterToTournament(tournamentId : number){
+    return this.isRegistered = false;
+    // this._tournamentService.join(tournamentId).subscribe();
+  }
+
+  checkRegistration(tournamentId : number, memberId: number) : boolean {
+    return tournamentId > 0 && memberId > 0;;
   }
 
   deleteTournament(tournamentId: number) {

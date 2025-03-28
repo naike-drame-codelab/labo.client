@@ -65,7 +65,7 @@ export class RegisterMemberComponent {
     .subscribe({
       next: () => {
         this.messageService.add({ severity: 'success', summary: 'La sauvegarde a été effectuée avec succès' });
-        this.router.navigate(['/']);
+        this.router.navigate(['/member']);
         //this.isLoading = false;
       },
       error: (error) => {

@@ -14,6 +14,8 @@ th{
 
 td {
     font-size: 0.95em;
+    justify-content: center;
+    align-items: center;
 
     &.more{
         display: flex;
@@ -21,3 +23,19 @@ td {
 }
 }
  
+.categories{
+    margin: auto;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 5px;
+    
+    span{
+        background-color: #48ccaf;
+        font-weight: bold;
+        font-size: 0.75em;
+        padding: 5px 10px;
+        border-radius: 10px;
+        color: #fff;
+    }
+}

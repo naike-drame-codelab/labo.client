@@ -25,4 +25,8 @@ export class TournamentService {
   delete(id: number){
     return this.httpClient.delete(`${environment.baseApiUrl}/tournament/${id}`);
   }
+
+  register(id: number){
+    return this.httpClient.post(`${environment.baseApiUrl}/register`, id);    
+  }
 }

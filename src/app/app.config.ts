@@ -7,6 +7,7 @@ import Material from '@primeng/themes/material';
 import { routes } from './app.routes';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { providePrimeNG } from 'primeng/config';
+import { tokenInterceptor } from './interceptors/token.interceptor';
 
 
 export const appConfig: ApplicationConfig = {
@@ -15,7 +16,7 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideAnimations(),
     provideHttpClient(withInterceptors([
-
+      tokenInterceptor
     ])),
     providePrimeNG({
       theme: { preset: Material }
